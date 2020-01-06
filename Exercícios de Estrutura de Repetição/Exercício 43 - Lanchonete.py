@@ -23,7 +23,7 @@ print('Cardápio Lanchonete:\n Especificação   Código  Preço\n' +
       'Hambúrguer      103     R$ 1,20\n' +
       'Cheeseburguer   104     R$ 1,30\n' +
       'Refrigerante    105     R$ 1,00\n\n' +
-      'Para encerrar digite "0"\n' )
+      'Para encerrar digite "-1"\n' )
 lista = []
 while True:
     pedido = int(input('Digite o código do produto: '))
