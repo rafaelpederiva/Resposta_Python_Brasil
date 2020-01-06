@@ -1,2 +1,3 @@
 # Resposta_Python_Brasil
-Exercícios resolvidos Python Brasil
+
+Lista de exercícios resolvidos Python Brasil.
