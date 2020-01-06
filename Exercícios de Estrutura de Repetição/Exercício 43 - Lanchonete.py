@@ -16,7 +16,7 @@ cardapio = [ {'especificação': 'Cachorro Quente', 'codigo': 100, 'preço': 1.2
              {'especificação':   'Cheeseburguer', 'codigo': 104, 'preço': 1.30},
              {'especificação':    'Refrigerante', 'codigo': 105, 'preço': 1.00} ]
 
-print('Cardápio Lanchonete:\n Especificação   Código  Preço\n' +
+print('Cardápio Lanchonete:\nEspecificação   Código  Preço\n' +
       'Cachorro Quente 100     R$ 1,20\n' +
       'Bauru Simples   101     R$ 1,30\n' +
       'Bauru com ovo   102     R$ 1,50\n' +
