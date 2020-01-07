@@ -1,130 +1,184 @@
 #Exercício 05 
-'''Classe Conta Corrente: Crie uma classe para implementar uma conta corrente. A classe deve possuir os seguintes atributos: número da conta, 
-nome do correntista e saldo. Os métodos são os seguintes: alterarNome, depósito e saque; No construtor, saldo é opcional, com valor default zero e 
-os demais atributos são obrigatórios.'''
-import random
-import time
+#Classe Conta Corrente: Crie uma classe para implementar uma conta corrente. A classe deve possuir os seguintes atributos:
+#número da conta, nome do correntista e saldo. Os métodos são os seguintes: alterarNome, depósito e saque; No construtor, 
+#saldo é opcional, com valor default zero e  os demais atributos são obrigatórios.'''
 import os
-import sqlite3
+import time
+import random
 
-conectar = sqlite3.connect(r'C:\sqlite\bd_teste\bank_new_python.db')
-c = conectar.cursor()
-
+dicionario = {}
+lista = []
 
 class ContaCorrente():
-    def __init__(self, conta=0, nome='none', saldo=0.00):
+    def __init__(self, conta, nome, saldo):
         self.conta = conta
         self.nome = nome
         self.saldo = saldo
 
-    # MENU PRINCIPAL
-    def menu(self):
+    def menu_principal(self):
         if os.name == 'nt':
             os.system('cls')
         else:
             os.system('clear')
-        print('\n   **** BANK NEW PYTHON ****\n', '-' * 30, '\
-              \n MENU PRINCIPAL\n', '-' * 30, '\
-              \n Informe uma opção:\n  1 - Criar Conta\n  2 - Acessar Conta\n  3 - Depositar\n  4 - Sair\n')
+        print('BANCO NEW PYTHON')
+        print('-' *30)
+        print('Informe a opção desejada:')
+        print('[1] - NOVA CONTA\n[2] - ACESSAR CONTA\n[3] - DEPOSITAR\n[4] - SAQUE\n[5] - SAIR')
         while True:
-            selecao = int(input('Opção: '))
-            if selecao == 1:
-                if os.name == 'nt':
-                    os.system('cls')
-                else:
-                    os.system('clear')
-                print('\nOpção %d - NOVA CONTA' % selecao)
-                print('-' * 30)
-                self.criarConta()
+            opcao = int(input('\n>> '))
+            if opcao == 1:
+                self.nova_conta()
                 break
-            elif selecao == 2:
-                if os.name == 'nt':
-                    os.system('cls')
-                else:
-                    os.system('clear')
-                print('\nOpção %d - ACESSAR CONTA' % selecao)
-                print('-' * 30)
-                print('\nMenu em desenvolvimento...\n ')
-                time.sleep(2)
-                input('Aperte enter para voltar para o menu principal.')
-                if os.name == 'nt':
-                    os.system('cls')
-                else:
-                    os.system('clear')
-                self.menu()                
+            elif opcao == 2:
+                self.acessa_conta()
                 break
-            elif selecao == 3:
+            elif opcao == 3:
+                self.deposito()
+                break
+            elif opcao == 4:
+                self.saque()
+                break
+            elif opcao == 5:
+                print('\nBANCO NEW PYTHON agradece a preferência!\nAté logo\n')
+                break
+            else:
+                print('Opção inválida!')   
+
+    def nova_conta(self):
+        if os.name == 'nt':
+            os.system('cls')
+        else:
+            os.system('clear')
+        print('[1] - MENU NOVA CONTA')
+        self.nome = input('\nDigite o nome do titular da conta: ')
+        self.conta = str(random.randrange(1000, 9999)) + '-' + str(random.randrange(1, 9))        
+        dicionario['nome'] = self.nome       
+        dicionario['conta'] = self.conta
+        dicionario['saldo'] = self.saldo
+        lista.append(dicionario.copy())        
+        print('\nCriando conta, aguarde...')
+        time.sleep(3)  
+        print('\nConta criada com sucesso!')
+        time.sleep(1)
+        print('\nAnote o número da conta: ', self.conta, '\n')
+        input('Aperte ENTER para voltar para o MENU PRINCIPAL')
+        self.menu_principal()
+    
+    def acessa_conta(self):
+        if os.name == 'nt':
+            os.system('cls')
+        else:
+            os.system('clear')
+        validador = False
+        print('[2] - MENU DE ACESSO DE CONTA')
+        while True:
+            dados = input('\nDigite o número da conta [XXXX-X]: ')
+            for i in lista:
+                if dados == i['conta']:
+                    self.conta = i['conta']
+                    self.nome = i['nome']
+                    self.saldo = i['saldo']
+                    validador = True
+            if validador == False:
                 if os.name == 'nt':
                     os.system('cls')
                 else:
                     os.system('clear')
-                print('\nOpção %d - DEPOSITO EM CONTA' % selecao)
-                print('-' * 30)
-                self.depósito()
-                break
-            elif selecao == 4:
-                if os.name == 'nt':
-                    os.system('cls')
-                else:
-                    os.system('clear')
-                print('\nOpção %d - ENCERRAR APLICAÇÃO' % selecao)
-                print('-' * 30)
-                print('\nObrigado por utilizar o caixa eletrônico New Python!')
-                time.sleep(2)
-                os.system('exit')
-                break
+                print('Conta inválida!')
             else:
                 if os.name == 'nt':
                     os.system('cls')
                 else:
                     os.system('clear')
-                print('\nOpção %d - OPÇÃO INVÁLIDA!' % selecao)
-                print('-' * 30)
-                print('\nPara prosseguir informe:\n 1 - Criar Conta\n 2 - Acessar Conta\n 3 - Sair\n')
+                print('DETALHES DA CONTA:')
+                print('\nTitular da conta {}: {} ' .format(self.conta,self.nome) )
+                print('Saldo: R$%6.2f\n\n' %self.saldo)               
+                break
+        input('\nAperte ENTER para voltar para o MENU PRINCIPAL')
+        self.menu_principal()
 
-    # CRIAR UMA NOVA CONTA
-    def criarConta(self):
-        dados_nome = input('Digite o nome do titular da conta: ')
-        self.nome = dados_nome
-        dados_conta = str(random.randrange(1000, 9999)) + '-' + str(random.randrange(1, 9))
-        self.conta = dados_conta
-        print('Criando conta, aguarde...\n')
-        time.sleep(3)
-        print('Conta criada com sucesso!\n')
-        time.sleep(1)
-        self.bancoDados()
-        input('\nAperte enter para voltar ao menu principal.')
+    def deposito(self):
+        self.nome = ''
+        self.conta = 0
+        self.saldo = 0.00
         if os.name == 'nt':
             os.system('cls')
         else:
             os.system('clear')
-        self.menu()
-
-    # SALVAR OS DADOS DENTRO DO BANCO DE DADOS  JÁ CRIADO "bank_new_python.db" VIA SQLITE
-    def bancoDados(self):
-        print('CONTA: {}\nTITULAR: {}\nSALDO: R$ {:.2f}'.format(self.conta, self.nome, self.saldo))
-        c.execute('INSERT INTO dados_conta VALUES(?,?,?)', (self.conta, self.nome, self.saldo))
-        conectar.commit()
-
-    # def alterarNome(self):
-
-    def depósito(self):
-        sql = 'SELECT * FROM dados_conta WHERE conta = ?'
-        num = str(input('Digite o número da conta para depósito [xxxx-x]: '))
-        for row in c.execute(sql, (num,)):
-
-            if row[0] == num:
-                valor = float(input('Valor: R$ '))
-                c.execute('UPDATE dados_conta SET saldo = saldo + ? WHERE conta = ?', (valor, num))
-                conectar.commit()
-                time.sleep(3)
-                print('\nDepósito realizado com sucesso!\n')
-                time.sleep(1)
-                input('\nAperte enter para voltar ao menu principal.')
+        validador = False 
+        print('[3] - DEPÓSITO')
+        
+        while True:
+            dados = input('\nDigite o número da conta para depósito[XXXX-X]: ')
+            for i in lista:
+                if dados == i['conta']:
+                    self.conta = i['conta']
+                    self.saldo = i['saldo']
+                    self.nome = i['nome']
+                    validador = True
+            if validador == False:
                 if os.name == 'nt':
                     os.system('cls')
                 else:
                     os.system('clear')
-                self.menu()
-contaCorrente = ContaCorrente()
-contaCorrente.menu()
+                print('Conta inválida!')
+            else:
+                break
+        while True:
+            valor = float(input('Digite o valor do depósito: R$ '))
+            if valor <= 0:
+                print('Valor inválido!')
+            else:
+                for i in lista:
+                    if dados == i['conta']:
+                        self.saldo = self.saldo + valor   
+                        i['saldo'] = self.saldo               
+                break
+        input('\nAperte ENTER para voltar para o MENU PRINCIPAL')
+        self.menu_principal()
+
+    def saque(self):
+        self.nome = ''
+        self.conta = 0
+        self.saldo = 0.00
+        if os.name == 'nt':
+            os.system('cls')
+        else:
+            os.system('clear')
+        validador = False 
+        print('[4] - SAQUE')        
+        while True:
+            dados = input('\nDigite o número da conta para saque[XXXX-X]: ')
+            for i in lista:
+                if dados == i['conta']:
+                    self.conta = i['conta']
+                    self.saldo = i['saldo']
+                    self.nome = i['nome']
+                    validador = True
+            if validador == False:
+                if os.name == 'nt':
+                    os.system('cls')
+                else:
+                    os.system('clear')
+                print('Conta inválida!')
+            else:
+                break
+        validador = False
+        while True:
+            saque = float(input('Valor: R$ '))
+            for i in lista:
+                if dados == i['conta']:
+                    if saque > i['saldo']:
+                        print('O saldo não é suficiênte! ')
+                    else:
+                        print('Saque realizado com sucesso!')
+                        self.saldo = self.saldo - saque   
+                        i['saldo'] = self.saldo 
+                        validador = True
+            if validador == True:
+                break
+        input('\nAperte ENTER para voltar para o MENU PRINCIPAL')
+        self.menu_principal()                
+
+c = ContaCorrente(0,'none',0.00)
+c.menu_principal()
