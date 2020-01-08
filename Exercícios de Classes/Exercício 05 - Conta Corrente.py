@@ -211,8 +211,12 @@ class ContaCorrente():
                     os.system('clear')
                 print('Conta inválida!')
             else:
-                print('\nNome alterado de "{}" para "{}" com sucesso!' .format( nome_antigo,self.nome ))
-                break
+                if nome_antigo == self.nome:
+                    print('\nO nome do titular já estava como ', self.nome)
+                    break
+                else:
+                    print('\nNome alterado de "{}" para "{}" com sucesso!' .format( nome_antigo,self.nome ))
+                    break
         input('\nAperte ENTER para voltar para o MENU PRINCIPAL')
         self.menu_principal() 
 
