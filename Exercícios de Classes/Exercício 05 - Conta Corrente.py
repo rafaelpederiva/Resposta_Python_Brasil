@@ -1,7 +1,7 @@
 #Exercício 05 
-#Classe Conta Corrente: Crie uma classe para implementar uma conta corrente. A classe deve possuir os seguintes atributos:
-#número da conta, nome do correntista e saldo. Os métodos são os seguintes: alterarNome, depósito e saque; No construtor, 
-#saldo é opcional, com valor default zero e  os demais atributos são obrigatórios.'''
+'''Classe Conta Corrente: Crie uma classe para implementar uma conta corrente. A classe deve possuir os seguintes atributos: número da conta, 
+nome do correntista e saldo. Os métodos são os seguintes: alterarNome, depósito e saque; No construtor, saldo é opcional, com valor default zero e 
+os demais atributos são obrigatórios.'''
 import os
 import time
 import random
@@ -23,7 +23,7 @@ class ContaCorrente():
         print('BANCO NEW PYTHON')
         print('-' *30)
         print('Informe a opção desejada:')
-        print('[1] - NOVA CONTA\n[2] - ACESSAR CONTA\n[3] - DEPOSITAR\n[4] - SAQUE\n[5] - SAIR')
+        print('[1] - NOVA CONTA\n[2] - ACESSAR CONTA\n[3] - DEPOSITAR\n[4] - SAQUE\n[5] - ALTERAR NOME\n[6] - SAIR')
         while True:
             opcao = int(input('\n>> '))
             if opcao == 1:
@@ -39,7 +39,15 @@ class ContaCorrente():
                 self.saque()
                 break
             elif opcao == 5:
-                print('\nBANCO NEW PYTHON agradece a preferência!\nAté logo\n')
+                self.alterar_nome()
+                break            
+            elif opcao == 6:
+                if os.name == 'nt':
+                    os.system('cls')
+                else:
+                    os.system('clear')
+                print('[6] - SAIR')
+                print('\nAplicação encerrada!\nBANCO NEW PYTHON agradece a preferência!\n\n')
                 break
             else:
                 print('Opção inválida!')   
@@ -178,7 +186,36 @@ class ContaCorrente():
             if validador == True:
                 break
         input('\nAperte ENTER para voltar para o MENU PRINCIPAL')
-        self.menu_principal()                
+        self.menu_principal() 
+
+    def alterar_nome(self):
+        if os.name == 'nt':
+            os.system('cls')
+        else:
+            os.system('clear')
+        validador = False
+        print('[5] - ALTERAR NOME')
+        while True:
+            dados = input('\nDigite o número da conta para alterar o nome do titular[XXXX-X]: ')
+            for i in lista:
+                if dados == i['conta']:
+                    self.conta = i['conta']
+                    self.saldo = i['saldo']
+                    nome_antigo = i['nome']
+                    i['nome'] = input('Digite o novo nome: ')
+                    self.nome = i['nome']
+                    validador = True
+            if validador == False:
+                if os.name == 'nt':
+                    os.system('cls')
+                else:
+                    os.system('clear')
+                print('Conta inválida!')
+            else:
+                print('\nNome alterado de {} para {} com sucesso!' .format( nome_antigo,self.nome ))
+                break
+        input('\nAperte ENTER para voltar para o MENU PRINCIPAL')
+        self.menu_principal() 
 
 c = ContaCorrente(0,'none',0.00)
 c.menu_principal()
