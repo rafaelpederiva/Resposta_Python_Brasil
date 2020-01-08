@@ -114,8 +114,7 @@ class ContaCorrente():
         else:
             os.system('clear')
         validador = False 
-        print('[3] - DEPÓSITO')
-        
+        print('[3] - DEPÓSITO')        
         while True:
             dados = input('\nDigite o número da conta para depósito[XXXX-X]: ')
             for i in lista:
