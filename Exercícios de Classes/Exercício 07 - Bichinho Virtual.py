@@ -239,7 +239,7 @@ class BichinhoEletrônico():
 					if self.fome < 0:
 						self.fome = 0
 					break
-			print('{} comendo ..... ' .format(self.nome))
+			print('{} bebendo ..... ' .format(self.nome))
 			time.sleep(3)
 			self.mostrar_bichinho()
 
