@@ -26,15 +26,12 @@ lista_bebidas = [{'codigo': 1, 'descricao': 'Refrigerante', 'valor_energetico': 
 				 {'codigo': 3, 'descricao':         'Água', 'valor_energetico':  2, 'saude':  30} ]
 
 class BichinhoEletrônico():
-	
-
-
 	def __init__(self, nome='', fome=20, saude=80, idade=1):
 		self.nome = nome
 		self.fome = fome
 		self.saude = saude
 		self.idade = idade
-	
+		
 	def limpar_tela(self):
 		if os.name == 'nt':
 			os.system('cls')
