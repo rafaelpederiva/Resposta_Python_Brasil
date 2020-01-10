@@ -270,8 +270,11 @@ class BichinhoEletrônico():
 	def saude_bichinho(self):
 		self.limpar_tela()
 		print('Dê remédio para o {} '.format(self.nome))
+		print('Remédio ( Tabela )\n\nCódigo  Descrição     Valor_energ  Saúde')
+		print('-' *50)
 		for i in lista_remedios:
-			print('[', i['codigo'], '] - ', i['descricao'])
+			print('{:<8}{:<14}{:^11}{:^7}' .format(i['codigo'], i['descricao'], i['valor_energetico'], i['saude'] ))
+		print('-' *50)
 		validador = False
 		while True:
 			dados = int(input('\n>> '))
