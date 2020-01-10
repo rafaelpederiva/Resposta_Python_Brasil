@@ -25,20 +25,25 @@ lista_bebidas = [{'codigo': 1, 'descricao': 'Refrigerante', 'valor_energetico': 
 				 {'codigo': 2, 'descricao': 'Suco Natural', 'valor_energetico': 10, 'saude':   5},
 				 {'codigo': 3, 'descricao':         'Água', 'valor_energetico':  2, 'saude':  30} ]
 
+lista_remedios = [{'codigo': 1, 'descricao':    'Aspirina', 'valor_energetico':  -2, 'saude':   3},
+				  {'codigo': 2, 'descricao':    'Dipirona', 'valor_energetico': -10, 'saude':  10},
+				  {'codigo': 3, 'descricao': 'Antibiotico', 'valor_energetico': -70, 'saude': 100} ]
+
 class BichinhoEletrônico():
+
 	def __init__(self, nome='', fome=20, saude=80, idade=1):
 		self.nome = nome
 		self.fome = fome
 		self.saude = saude
 		self.idade = idade
-		
+	
 	def limpar_tela(self):
 		if os.name == 'nt':
 			os.system('cls')
 		else:
 			os.system('clear')	
 		print('-' *50,'\n')
-		self.cara_bichinho()
+		self.humor_bichinho()
 		print('-' *50)
 
 	def mostrar_bichinho(self):
@@ -66,13 +71,14 @@ class BichinhoEletrônico():
 		print('[1] - Alimentar {}'           .format(self.nome))
 		print('[2] - Dar remédio para {}'    .format(self.nome))
 		print('[3] - Colocar {} para dormir' .format(self.nome))
+		print('[4] - Abandonar {}'           .format(self.nome))
 		while True:
 			opcao = int(input('\n>> '))
 			if opcao == 1:
 				self.alimentando_bichinho()
 				break
 			elif opcao == 2:
-				print('Dando remédio') # +++++++++++++++++++++++++++++++++++++++++ FAZER O MENU
+				self.saude_bichinho()
 				break
 			elif opcao == 3:
 				if os.name == 'nt':
@@ -86,7 +92,7 @@ class BichinhoEletrônico():
 				for i in range(0,5):
 					print('\n', sono[i])
 					time.sleep(0.8)
-				time.sleep(1)
+				time.sleep(0.7)
 				input('\nDigite ENTER para acordar o {}   ' .format(self.nome))
 				self.idade += 1
 				if self.fome >= 50:
@@ -98,6 +104,16 @@ class BichinhoEletrônico():
 				else:
 					self.saude += 30
 				self.mostrar_bichinho()				
+				break
+			elif opcao == 4:				
+				if os.name == 'nt':
+					os.system('cls')
+				else:
+					os.system('clear')
+				print('-' *50, '\n')
+				print('        (;_;)   {} chorando...' .format(self.nome))
+				print('-' *50)
+				print('\nVocê abandonou o {}!\n\n' .format(self.nome))
 				break
 			else:
 				print('Dados Inválidos')
@@ -115,7 +131,7 @@ class BichinhoEletrônico():
 		self.nome = n
 		self.mostrar_bichinho()
 
-	def cara_bichinho(self):
+	def humor_bichinho(self):
 		if (self.fome >= 60) and (self.fome <= 100):
 			if self.saude < 40:
 				print('        (@_@)    {} está doente e com muita fome!' .format(self.nome))
@@ -190,6 +206,8 @@ class BichinhoEletrônico():
 							self.saude = self.saude + i['saude']
 					if self.fome < 0:
 						self.fome = 0
+					if self.saude > 100:
+						self.saude = 100
 					break
 			print('{} comendo ..... ' .format(self.nome))
 			time.sleep(3)
@@ -206,6 +224,8 @@ class BichinhoEletrônico():
 							self.saude = self.saude + i['saude']
 					if self.fome < 0:
 						self.fome = 0
+					if self.saude > 100:
+						self.saude = 100
 					break
 			print('{} comendo ..... ' .format(self.nome))
 			time.sleep(3)
@@ -222,6 +242,8 @@ class BichinhoEletrônico():
 							self.saude = self.saude + i['saude']
 					if self.fome < 0:
 						self.fome = 0
+					if self.saude > 100:
+						self.saude = 100
 					break
 			print('{} comendo ..... ' .format(self.nome))
 			time.sleep(3)
@@ -238,10 +260,39 @@ class BichinhoEletrônico():
 							self.saude = self.saude + i['saude']
 					if self.fome < 0:
 						self.fome = 0
+					if self.saude > 100:
+						self.saude = 100
 					break
 			print('{} bebendo ..... ' .format(self.nome))
 			time.sleep(3)
 			self.mostrar_bichinho()
+	
+	def saude_bichinho(self):
+		self.limpar_tela()
+		print('Dê remédio para o {} '.format(self.nome))
+		for i in lista_remedios:
+			print('[', i['codigo'], '] - ', i['descricao'])
+		validador = False
+		while True:
+			dados = int(input('\n>> '))
+			for i in lista_remedios:
+				if dados == i['codigo']:
+					validador = True
+			if validador == True:
+				break
+			else:
+				print('Dados inválidos!')
+		for i in lista_remedios:
+			if i['codigo'] == dados:
+				self.fome = self.fome - i['valor_energetico']
+				self.saude = self.saude + i['saude']
+			if self.fome < 0:
+				self.fome = 0
+			if self.saude > 100:
+				self.saude = 100
+		print('{} tomando remédio ....' .format(self.nome))
+		time.sleep(3)
+		self.mostrar_bichinho()
 
 b = BichinhoEletrônico()
 b.alterar_nome()
