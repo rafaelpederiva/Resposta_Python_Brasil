@@ -37,6 +37,7 @@ while True:
         if (m < 0) or (m > 60):
             print('Minutos inválidos!')
             time.sleep(2)
+            limpa_tela()
         else:
             limpa_tela()
             print(hora_ampm(h,m))
