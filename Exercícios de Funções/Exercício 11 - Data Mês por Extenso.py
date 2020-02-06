@@ -1,6 +1,6 @@
 #Exercício 11
-'''Data com mês por extenso. Construa uma função que receba uma data no formato DD/MM/AAAA e devolva uma string no formato D de 
-mesPorExtenso de AAAA. Opcionalmente, valide a data e retorne NULL caso a data seja inválida. '''
+# Data com mês por extenso. Construa uma função que receba uma data no formato DD/MM/AAAA e devolva uma string no formato D de 
+# mesPorExtenso de AAAA. Opcionalmente, valide a data e retorne NULL caso a data seja inválida.
 
 lista = [ {'numero_mes':  1, 'mes_extenso':  'Janeiro'},{'numero_mes':  2, 'mes_extenso': 'Fevereiro'},
           {'numero_mes':  3, 'mes_extenso':    'Março'},{'numero_mes':  4, 'mes_extenso':     'Abril'},
@@ -62,3 +62,4 @@ if (dia > 0) and (mes > 0) and (ano > 0):
             print('\nNULL\nData inválida! (Erro: MES)\n')                   
 else:
     print('\nNULL\nData inválida! A data não pode conter números zeros ou negativos!\n')
+
