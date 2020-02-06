@@ -3,6 +3,6 @@
 def inteiros(numero):
     return len((str(numero)))
 
-n = str(input('Digite um número: ')).strip()
+n = str(input('Digite um número: '))
 
 print(f'Esse número tem {inteiros(n)} dígitos')
